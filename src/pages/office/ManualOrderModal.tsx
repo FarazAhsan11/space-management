@@ -28,8 +28,12 @@ export const ManualOrderModal = ({ onClose }: Props) => {
       requestedAt: Date.now(),
       addedBy: "office-boy",
     };
+    if(customer.todayChaiCoffeeUsed === 0){
     dispatch({ type: "PLACE_ORDER", payload: newOrder });
     onClose();
+    }
+    else alert("User have Already Ordered for today");
+    
   };
 
   return (

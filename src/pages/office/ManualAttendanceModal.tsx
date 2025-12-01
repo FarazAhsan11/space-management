@@ -13,46 +13,43 @@ export const ManualAttendanceModal = ({ onClose }: Props) => {
   const [action, setAction] = useState<"checkin" | "checkout">("checkin");
   const [time, setTime] = useState<string>("");
 
-const handleSubmit = () => {
-  const customer = state.customers.find((c) => c.id === customerId);
-  if (!customer) return;
+  const handleSubmit = () => {
+    const customer = state.customers.find((c) => c.id === customerId);
+    if (!customer) return;
 
-  const timestamp = time ? new Date(time).getTime() : Date.now();
-if (action === "checkin") {
-  if (customer.isCheckedIn) {
-    alert("Customer already Checked In!");
-    return;
-  }
+    const timestamp = time ? new Date(time).getTime() : Date.now();
+    if (action === "checkin") {
+      if (customer.isCheckedIn) {
+        alert("Customer already Checked In!");
+        return;
+      }
 
-  dispatch({
-    type: "CHECK_IN",
-    payload: {
-      ...customer,
-      lastCheckIn: timestamp,
-      addedBy: "office-boy",
-    },
-  });
+      dispatch({
+        type: "CHECK_IN",
+        payload: {
+          ...customer,
+          lastCheckIn: timestamp,
+          addedBy: "office-boy",
+        },
+      });
+    } else if (action === "checkout") {
+      if (!customer.isCheckedIn) {
+        alert("Customer already Checked Out!");
+        return;
+      }
 
-} else if (action === "checkout") {
-  if (!customer.isCheckedIn) {
-    alert("Customer already Checked Out!");
-    return;
-  }
+      dispatch({
+        type: "CHECK_OUT",
+        payload: {
+          ...customer,
+          lastCheckOut: timestamp,
+          addedBy: "office-boy",
+        },
+      });
+    }
 
-  dispatch({
-    type: "CHECK_OUT",
-    payload: {
-      ...customer,
-      lastCheckOut: timestamp,
-      addedBy: "office-boy",
-    },
-  });
-}
-
-onClose();
-
-};
-
+    onClose();
+  };
 
   return (
     <Modal title="Manual Check-in/out" onClose={onClose}>

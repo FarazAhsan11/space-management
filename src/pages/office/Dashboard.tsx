@@ -96,7 +96,14 @@ export const Dashboard = () => {
             >
               {`${o.type} - Cabin ${o.cabinNumber} (${o.customerName})`}
               <span className="font-semibold ml-2">
-                {new Date(o.completedAt!).toLocaleTimeString()}
+                {new Date(o.completedAt!).toLocaleTimeString(
+                      [],
+                      {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                      }
+                    )}
               </span>
             </li>
           ))}
@@ -108,7 +115,14 @@ export const Dashboard = () => {
             >
               {`Guest (${g.guestName}) - Cabin ${g.cabinNumber} (${g.customerName})`}
               <span className="font-semibold ml-2">
-                {new Date(g.completedAt!).toLocaleTimeString()}
+                {new Date(g.completedAt!).toLocaleTimeString(
+                      [],
+                      {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: true,
+                      }
+                    )}
               </span>
             </li>
           ))}

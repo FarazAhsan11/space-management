@@ -23,18 +23,18 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-sm bg-white shadow-md rounded-md p-6">
-        <h2 className="text-xl font-semibold text-center mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      <div className="w-full max-w-sm sm:max-w-md md:max-w-lg bg-white shadow-md rounded-md p-6 sm:p-8 md:p-10">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-center mb-6">
           Co-Working Space Login
         </h2>
 
         <form className="space-y-4" onSubmit={handleLogin}>
           <div className="flex flex-col">
-            <label className="font-medium mb-1">Email</label>
+            <label className="font-medium mb-1 text-sm sm:text-base">Email</label>
             <input
               type="email"
-              className="border rounded-md px-3 py-2"
+              className="border rounded-md px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base"
               placeholder="Enter email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -42,24 +42,23 @@ const Login = () => {
           </div>
 
           <div className="flex flex-col">
-            <label className="font-medium mb-1">Password</label>
+            <label className="font-medium mb-1 text-sm sm:text-base">Password</label>
             <input
               type="password"
-              className="border rounded-md px-3 py-2"
+              className="border rounded-md px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base"
               placeholder="Enter password"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
           </div>
 
-          <Button type="submit" className="w-full mt-2 cursor-pointer">
+          <Button type="submit" className="w-full mt-2 cursor-pointer text-sm sm:text-base">
             Login
           </Button>
 
-          {/* New button to navigate to /office */}
           <Button
             type="button"
-            className="w-full mt-2 cursor-pointer"
+            className="w-full mt-2 cursor-pointer text-sm sm:text-base"
             onClick={() => navigate("/office")}
           >
             Go to Office
@@ -71,6 +70,7 @@ const Login = () => {
 };
 
 export default Login;
+
 
 
 // import { useState } from "react";
