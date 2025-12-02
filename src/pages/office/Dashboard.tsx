@@ -19,6 +19,7 @@ export const Dashboard = () => {
   const completedGuests = state.guests.filter((g) => g.status === "completed");
   const pendingCount = pendingOrders.length + pendingGuests.length;
   const completedCount = completedOrders.length + completedGuests.length;
+  
 
   return (
     <div className="p-4 md:p-8 space-y-8 max-w-6xl mx-auto">

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useApp } from "@/store/AppContext";
 import type { Order, GuestRequest } from "@/store/types";
+import { toast } from "sonner";
 
 interface Props {
   request: Order | GuestRequest;
@@ -15,11 +16,14 @@ export const PendingRequestCard = ({ request }: Props) => {
         type: "MARK_ORDER_COMPLETE",
         payload: { id: request.id, completedAt: Date.now() },
       });
+      toast.success(`Order Completed For ${request.customerName}`)
+
     } else {
       dispatch({
         type: "MARK_GUEST_COMPLETE",
         payload: { id: request.id, completedAt: Date.now() },
       });
+      toast.success(`Guest Received For ${request.customerName}`)
     }
   };
 

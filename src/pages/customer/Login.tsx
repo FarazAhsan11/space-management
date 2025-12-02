@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useApp } from "@/store/AppContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Login = () => {
   const { state, dispatch } = useApp();
@@ -11,16 +12,22 @@ const Login = () => {
 
   const handleLogin = (e: any) => {
     e.preventDefault();
+    if((form.email.trim()).length === 0 && form.password.trim().length === 0){
+      toast.error("Please Fill Both Fields")
+      return
+    }
     const user = state.customers.find(
       (u: any) => u.email === form.email && u.password === form.password
     );
     if (!user) {
-      alert("Invalid email/password");
+      toast.error("Invalid email/password");
       return;
     }
     dispatch({ type: "LOGIN", payload: user });
     navigate("/customer/dashboard");
+    toast.success("Logged In")
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">

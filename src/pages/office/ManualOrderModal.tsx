@@ -4,6 +4,7 @@ import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { nanoid } from "nanoid";
 import type { Order } from "@/store/types";
+import { toast } from "sonner";
 
 interface Props {
   onClose: () => void;
@@ -32,7 +33,7 @@ export const ManualOrderModal = ({ onClose }: Props) => {
     dispatch({ type: "PLACE_ORDER", payload: newOrder });
     onClose();
     }
-    else alert("User have Already Ordered for today");
+    else toast.error("User have Already Ordered for today");
     
   };
 

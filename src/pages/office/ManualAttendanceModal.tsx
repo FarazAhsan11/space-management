@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useApp } from "@/store/AppContext";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 interface Props {
   onClose: () => void;
@@ -20,7 +21,7 @@ export const ManualAttendanceModal = ({ onClose }: Props) => {
     const timestamp = time ? new Date(time).getTime() : Date.now();
     if (action === "checkin") {
       if (customer.isCheckedIn) {
-        alert("Customer already Checked In!");
+        toast.error("Customer already Checked In!");
         return;
       }
 
@@ -34,7 +35,7 @@ export const ManualAttendanceModal = ({ onClose }: Props) => {
       });
     } else if (action === "checkout") {
       if (!customer.isCheckedIn) {
-        alert("Customer already Checked Out!");
+        toast.error("Customer already Checked Out!");
         return;
       }
 

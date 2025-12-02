@@ -2,6 +2,7 @@ import { useApp } from "@/store/AppContext";
 import { Button } from "@/components/ui/button";
 import { GuestModal } from "./GuestModal";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function Dashboard() {
   const { state, dispatch } = useApp();
@@ -10,7 +11,8 @@ export default function Dashboard() {
 
   if (!user) {
     navigate("/");
-    return null;
+    toast.error("User Not Found")
+    return ;
   }
 
   const handleOrder = (type: "chai" | "coffee") => {
@@ -28,7 +30,10 @@ export default function Dashboard() {
         addedBy: "customer",
       },
     });
+   toast.success("Successfully Ordered")
+
   };
+
 
   const handleCheckIn = () => {
     dispatch({
@@ -38,6 +43,8 @@ export default function Dashboard() {
         addedBy: "customer",
       },
     });
+   toast.success("Checked In")
+
   };
 
   const handleCheckOut = () => {
@@ -48,11 +55,15 @@ export default function Dashboard() {
         addedBy: "customer",
       },
     });
+   toast.success("Checked Out")
+
   };
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
     navigate("/");
+   toast.success("User Logged Out")
+
   };
 
   return (

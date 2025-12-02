@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useApp } from "@/store/AppContext";
+import { toast } from "sonner";
 
 export function GuestModal() {
   const { state, dispatch } = useApp();
@@ -20,7 +21,31 @@ export function GuestModal() {
   const [open, setOpen] = useState(false);
 
   const handleSubmit = () => {
-    if (!state.currentUser) return;
+    if (!state.currentUser) {
+      toast.error("User not found. Please login again.");
+      return;
+    }
+
+    if (!guestName.trim()) {
+      toast.error("Guest name is required.");
+      return;
+    }
+
+    if (!expectedTime) {
+      toast.error("Time is required.");
+      return;
+    }
+
+    const [h, m] = expectedTime.split(":").map(Number);
+
+    const now = new Date();
+    const selected = new Date();
+    selected.setHours(h, m, 0, 0);
+
+    if (selected.getTime() < now.getTime()) {
+      toast.error("Time cannot be in the past.");
+      return;
+    }
 
     dispatch({
       type: "ADD_GUEST",
@@ -30,16 +55,17 @@ export function GuestModal() {
         customerName: state.currentUser.name,
         cabinNumber: state.currentUser.cabinNumber,
         guestName,
-        expectedTime: new Date(`2000-01-01 ${expectedTime}`).getTime(),
+        expectedTime: selected.getTime(),
         status: "pending",
         requestedAt: Date.now(),
         addedBy: "customer",
       },
     });
 
+    toast.success(`Guest request submitted for ${guestName}.`);
+
     setGuestName("");
     setExpectedTime("");
-
     setOpen(false);
   };
 
